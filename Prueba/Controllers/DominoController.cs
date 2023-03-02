@@ -113,7 +113,7 @@ namespace Prueba.Controllers
                                     separador[domino.b + 1, domino.w + 1] = domino.guardarr;
                                 }
                                 //Verificador de que si encuentra el pivote (osea la diagonal invertida igual) se saldra del ciclo while y pasara de pivote                            
-                                if (separador[domino.v, j] == separador[domino.b, domino.h])
+                                if (separador[domino.v, j] == separador[domino.b, j+1])
                                 {
                                     domino.w = domino.h;
                                     break;
@@ -163,6 +163,14 @@ namespace Prueba.Controllers
                                     domino.w = 1;
                                 }
                             }
+                           
+
+                            if (separador[domino.v, domino.Lista.Count() -2] == separador[domino.b, domino.Lista.Count() - 1] && domino.w >= Convert.ToInt32(domino.Lista.Count() - 1))
+                            {
+                                j = domino.Lista.Count();
+                                domino.w = 1;
+                            }
+
                             domino.w++; //aumente la posicion de la fila
                             domino.h++; //aumente la posicion interna de la fila
                         }
@@ -184,7 +192,7 @@ namespace Prueba.Controllers
                     domino.Fichas_Ingresadas = 0;                
                 }              
             }
-            catch (Exception)
+            catch (Exception ex)
             { // en caso de presentarse alguna falla anormal, la API no expondra el error al usuario pero tambien podra ser por la validacion de las cadenas de entrada
                 domino.Mensaje = "Ops ocurrio un problema, puede ser un error o que las fichas en cadena no son validas";
                 domino.aceptado = false;    //false cuando ocurra algo malo
